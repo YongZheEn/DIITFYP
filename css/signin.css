@@ -1,0 +1,68 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+}
+
+.login-container {
+    width: 300px;
+    padding-left: 5%;
+    padding-right: 5%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.login-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.login-container input[type="text"],
+.login-container input[type="password"],
+.login-container input[type="submit"] {
+    width: calc(100% - 22px); /* Adjust width */
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.login-container input[type="submit"] {
+    width: 100%; /* Set submit button width to 100% */
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-container input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+.login-container p {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.login-container p a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.login-container p a:hover {
+    text-decoration: underline;
+}
+
+.checkbox-container {
+    margin-bottom: 15px; /* Add margin bottom */
+}
+
+.checkbox-container input[type="checkbox"] {
+    display: inline-block;
+    margin-right: 5px; /* Add margin right for spacing */
+    vertical-align: middle; /* Align vertically with the label */
+}
