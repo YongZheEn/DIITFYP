@@ -33,7 +33,7 @@ $result = $conn->query($sql);
     
     <!-- Content -->
     <div class="content">
-        <h2>Customer List Page</h2>
+        <h2>Customers</h2>
         <!-- Display customer list -->
         <table class="data-table">
             <thead>
@@ -74,7 +74,7 @@ $result = $conn->query($sql);
             </tbody>
         </table>
     </div>
-    
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     <!-- Include footer -->
     <?php include 'include/footer.php'; ?>
 </body>

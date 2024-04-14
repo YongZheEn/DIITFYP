@@ -33,7 +33,7 @@ $result = $conn->query($sql);
     
     <!-- Content -->
     <div class="content">
-        <h2>Pharmacist List Page</h2>
+        <h2>Pharmacists</h2>
         <!-- Display user list -->
         <table class="data-table">
             <thead>
@@ -72,7 +72,7 @@ $result = $conn->query($sql);
             </tbody>
         </table>
     </div>
-    
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     <!-- Include footer -->
     <?php include 'include/footer.php'; ?>
 </body>

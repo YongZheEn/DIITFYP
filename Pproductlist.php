@@ -24,7 +24,7 @@
     
     <!-- Content -->
     <div class="content">
-        <h2>Products Page</h2>
+        <h2>Products</h2>
         <!-- Button to add a new entry -->
         <a href="Pproductlistadd.php"><button>Add New Product</button></a>
         <!-- Display products table -->
