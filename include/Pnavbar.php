@@ -5,5 +5,6 @@
         <li><a href="Pproductlist.php">Products</a></li>
         <li><a href="Psales.php">Sales</a></li>
         <li><a href="Pcustomerlist.php">Customer List</a></li>
+        <li><a href="Ppharmalist.php">Pharmacist List</a></li>
     </ul>
 </nav>

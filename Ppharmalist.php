@@ -2,8 +2,8 @@
 // Include database connection
 include 'db_connection.php';
 
-// Fetch customer data from the database
-$sql = "SELECT * FROM customers";
+// Fetch user data
+$sql = "SELECT * FROM pharmacists";
 $result = $conn->query($sql);
 ?>
 
@@ -12,7 +12,7 @@ $result = $conn->query($sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer List - Pharmalink</title>
+    <title>User List - Pharmalink</title>
     <!-- Include global CSS -->
     <link rel="stylesheet" href="css/global.css">
     <!-- Include header-specific CSS -->
@@ -33,42 +33,40 @@ $result = $conn->query($sql);
     
     <!-- Content -->
     <div class="content">
-        <h2>Customer List Page</h2>
-        <!-- Display customer list -->
+        <h2>Pharmacist List Page</h2>
+        <!-- Display user list -->
         <table class="data-table">
             <thead>
                 <tr>
-                    <th>Customer ID</th>
+                    <th>Pharmacist ID</th>
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Gender</th>
                     <th>Age</th>
                     <th>Address</th>
                     <th>Email</th>
-                    <th>Total Spent</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                // Check if there are any customers
+                // Check if there are any users
                 if ($result && $result->num_rows > 0) {
                     // Output data of each row
                     while ($row = $result->fetch_assoc()) {
                         echo "<tr>";
-                        echo "<td>" . $row['custID'] . "</td>";
+                        echo "<td>" . $row['PharmID'] . "</td>";
                         echo "<td>" . $row['fname'] . "</td>";
                         echo "<td>" . $row['lname'] . "</td>";
                         echo "<td>" . $row['gender'] . "</td>";
                         echo "<td>" . $row['age'] . "</td>";
                         echo "<td>" . $row['address'] . "</td>";
                         echo "<td>" . $row['email'] . "</td>";
-                        echo "<td>" . $row['total_spent'] . "</td>";
-                        echo "<td><a href='Pcustomerlistedit.php?id=" . $row['custID'] . "'>Edit</a> | <a href='Pcustomerlistdel.php?id=" . $row['custID'] . "'>Delete</a></td>";
+                        echo "<td><a href='Pcustomerlistedit.php?id=" . $row['PharmID'] . "'>Edit</a> | <a href='Pcustomerlistdel.php?id=" . $row['PharmID'] . "'>Delete</a></td>";
                         echo "</tr>";
                     }
                 } else {
-                    echo "<tr><td colspan='9'>No customers found</td></tr>";
+                    echo "<tr><td colspan='8'>No users found</td></tr>";
                 }
                 ?>
             </tbody>
@@ -79,4 +77,3 @@ $result = $conn->query($sql);
     <?php include 'include/footer.php'; ?>
 </body>
 </html>
-

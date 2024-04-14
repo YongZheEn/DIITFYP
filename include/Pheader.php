@@ -12,10 +12,10 @@
 <body>
     <header>
         <div class="header-left">
-            <h1><a href="Preports.php">Pharmalink</a></h1>
+        <a href="Preports.php"><img src="uploads\pharmalink-logo.svg" alt="PHARMALINK" style="width:180px;height:71px;"></a>
         </div>
         <div class="header-right">
-        <a href="logout.php" class="sign-out-btn">Sign Out</a>
+        <a href="signin.php" class="sign-out-btn">Sign Out</a>
     </div>
     </header>
 </body>

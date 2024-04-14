@@ -34,10 +34,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $age = $_POST["age"];
     $address = $_POST["address"];
     $email = $_POST["email"];
-    $pharmacist = isset($_POST["pharmacist"]) ? 1 : 0;
 
     // Update customer details in the database
-    $sql = "UPDATE customers SET fname = '$fname', lname = '$lname', gender = '$gender', age = $age, address = '$address', email = '$email', pharmacist = $pharmacist WHERE custID = $id";
+    $sql = "UPDATE customers SET fname = '$fname', lname = '$lname', gender = '$gender', age = $age, address = '$address', email = '$email'                                                                                                                              WHERE custID = $id";
 
     if ($conn->query($sql) === TRUE) {
         // Redirect to customer list page after successful update
@@ -65,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
     <!-- Include header -->
-    <?php include 'include/Pheader.php'; ?>
+    <?php include 'include/Pheader.php'; ?>         
 
     <div class="container">
         <h2>Edit Customer</h2>
@@ -86,8 +85,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="text" id="address" name="address" value="<?php echo $customer['address']; ?>" required><br><br>
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" value="<?php echo $customer['email']; ?>" required><br><br>
-            <input type="checkbox" id="is_pharmacist" name="is_pharmacist" <?php echo ($customer['is_pharmacist'] == 1 ? 'checked' : ''); ?>>
-            <label for="is_pharmacist">Pharmacist</label><br><br>
             <button type="submit">Update Customer</button>
         </form>
     </div>

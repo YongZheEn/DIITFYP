@@ -10,6 +10,26 @@
     <link rel="stylesheet" href="css/header.css">
     <!-- Include signin-specific CSS -->
     <link rel="stylesheet" href="css/signin.css">
+    <!-- Include JavaScript for form validation -->
+    <script>
+        function validateForm() {
+            // Get form inputs
+            var isPharmacist = document.getElementById("pharmacist").checked;
+            var pharmacyCode = document.getElementById("pharmacy_code").value;
+            
+            // Check if user is signing up as a pharmacist
+            if (isPharmacist) {
+                // Check if pharmacy code is "0000"
+                if (pharmacyCode !== "0000") {
+                    alert("Please enter the correct pharmacy code to sign up as a pharmacist.");
+                    return false;
+                }
+            }
+            return true;
+        }
+    </script>
+
+        
 </head>
 <body>
     <header>
@@ -18,7 +38,7 @@
     <div class="container">
         <div class="login-container"> <!-- New container for the form -->
             <h2>Sign Up</h2>
-            <form action="signup_process.php" method="post">
+            <form action="signup_process.php" method="post" onsubmit="return validateForm()">
                 <input type="text" id="fname" name="fname" placeholder="First Name" required><br>
                 <input type="text" id="lname" name="lname" placeholder="Last Name" required><br>
                 <!-- Dropdown menu for Gender -->

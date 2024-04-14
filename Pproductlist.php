@@ -25,6 +25,8 @@
     <!-- Content -->
     <div class="content">
         <h2>Products Page</h2>
+        <!-- Button to add a new entry -->
+        <a href="Pproductlistadd.php"><button>Add New Product</button></a>
         <!-- Display products table -->
         <table class="data-table">
             <thead>
@@ -70,7 +72,10 @@
                 ?>
             </tbody>
         </table>
+
+        
     </div>
+    
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     <!-- Include footer -->
     <?php include 'include/footer.php'; ?>

@@ -52,41 +52,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // If user is not found in either table, set error message
     $errorMsg = "Invalid email or password. Please try again.";
 }
-?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign In to Pharmalink</title>
-    <!-- Include global CSS -->
-    <link rel="stylesheet" href="css/global.css">
-    <!-- Include header-specific CSS -->
-    <link rel="stylesheet" href="css/header.css">
-    <!-- Include signin-specific CSS -->
-    <link rel="stylesheet" href="css/signin.css">
-</head>
-<body>
-    <header>
-        <h1>Sign In to Pharmalink</h1>
-    </header>
-    <div class="container">
-        <div class="login-container">
-            <h2>Sign In</h2>
-            <!-- Display error message if any -->
-            <?php if ($errorMsg !== ""): ?>
-                <p class="error-message"><?php echo $errorMsg; ?></p>
-            <?php endif; ?>
-            <form action="" method="post">
-                <input type="text" name="Email" placeholder="Email" required><br>
-                <input type="password" name="password" placeholder="Password" required><br>
-                <input type="submit" value="Sign In">
-            </form>
-            <p>Don't have an account? <a href="signup.php">Sign Up</a></p>
-        </div>
-    </div>
-    <!-- Include footer -->
-    <?php include 'include/footer.php'; ?>
-</body>
-</html>
+// Get form data
+$fname = $_POST['fname'];
+$lname = $_POST['lname'];
+$gender = $_POST['gender'];
+$age = $_POST['age'];
+$address = $_POST['address'];
+$email = $_POST['email'];
+$password = $_POST['password'];
+$pharmacist = isset($_POST['pharmacist']) ? 1 : 0; // Check if user is a pharmacist
+$pharmacy_code = $_POST['pharmacy_code'];
+
+// Insert user data into the appropriate table based on pharmacist status
+if ($pharmacist) {
+    // Insert into pharmacists table
+    $sql = "INSERT INTO pharmacists (fname, lname, gender, age, address, email, pass) VALUES ('$fname', '$lname', '$gender', $age, '$address', '$email', '$password')";
+} else {
+    // Insert into customers table
+    $sql = "INSERT INTO customers (fname, lname, gender, age, address, email, pass) VALUES ('$fname', '$lname', '$gender', $age, '$address', '$email', '$password')";
+}
+
+if ($conn->query($sql) === TRUE) {
+    // Determine redirect URL based on user type
+    $redirect_url = $pharmacist ? 'Preports.php' : 'Ccart.php';
+    // Redirect user to the appropriate page
+    header("Location: $redirect_url");
+    exit();
+} else {
+    // Handle error
+    echo "Error: " . $sql . "<br>" . $conn->error;
+}
+
+// Close database connection
+$conn->close();
+?>

@@ -24,6 +24,13 @@
     <div class="content">
         <h2>Reports Page</h2>
         <!-- Add your report content here -->
+        <!-- Display welcome message -->
+        <?php
+        // Check if welcome message is set
+        if (isset($_GET['message'])) {
+            echo "<p>" . $_GET['message'] . "</p>";
+        }
+        ?>
     </div>
     
     <!-- Include footer -->
