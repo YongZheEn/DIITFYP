@@ -45,7 +45,7 @@ $result = $conn->query($sql);
                     <th>Age</th>
                     <th>Address</th>
                     <th>Email</th>
-                    <th>Total Spent</th>
+                    <th>Total Spent(MYR)</th>
                     <th>Actions</th>
                 </tr>
             </thead>

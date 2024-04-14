@@ -37,6 +37,7 @@
                     <th>Prod_Desc</th>
                     <th>ProdP</th>
                     <th>ProdStock</th>
+                    <th>Total_profit(MYR)</th>
                     <th>Actions</th> <!-- New column for actions -->
                 </tr>
             </thead>
@@ -60,6 +61,7 @@
                         echo "<td>" . $row['prod_Desc'] . "</td>";
                         echo "<td>" . $row['ProdP'] . "</td>";
                         echo "<td>" . $row['ProdStock'] . "</td>";
+                        echo "<td>" . $row['total_profit'] . "</td>";
                         // Actions column with edit and delete links
                         echo "<td><a href='Pproductlistedit.php?id=" . $row['prod_ID'] . "'>Edit</a> | <a href='Pproductlistdel.php?id=" . $row['prod_ID'] . "'>Delete</a></td>";
                         echo "</tr>";
