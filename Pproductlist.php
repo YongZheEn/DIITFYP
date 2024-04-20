@@ -1,3 +1,12 @@
+<?php
+// Include database connection
+include 'db_connection.php';
+
+// Fetch products data from the database
+$sql = "SELECT * FROM products";
+$result = $conn->query($sql);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,13 +52,6 @@
             </thead>
             <tbody>
                 <?php
-                // Include database connection
-                include 'db_connection.php';
-                
-                // Fetch products data from the database
-                $sql = "SELECT * FROM products";
-                $result = $conn->query($sql);
-                
                 // Check if there are any products
                 if ($result && $result->num_rows > 0) {
                     // Output data of each row
@@ -63,7 +65,7 @@
                         echo "<td>" . $row['ProdStock'] . "</td>";
                         echo "<td>" . $row['total_profit'] . "</td>";
                         // Actions column with edit and delete links
-                        echo "<td><a href='Pproductlistedit.php?id=" . $row['prod_ID'] . "'>Edit</a> | <a href='Pproductlistdel.php?id=" . $row['prod_ID'] . "'>Delete</a></td>";
+                        echo "<td><a href='Pproductlistedit.php?id=" . $row['prod_ID'] . "'>Edit</a> | <a href='#' onclick='confirmDelete(\"Pproductlistdel.php?id=" . $row['prod_ID'] . "\")'>Delete</a></td>";
                         echo "</tr>";
                     }
                 } else {
@@ -81,5 +83,14 @@
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     <!-- Include footer -->
     <?php include 'include/footer.php'; ?>
+
+    <!-- JavaScript for confirmation popup -->
+    <script>
+        function confirmDelete(url) {
+            if (confirm("Are you sure you want to delete this product?")) {
+                window.location.href = url;
+            }
+        }
+    </script>
 </body>
 </html>

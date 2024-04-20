@@ -64,7 +64,8 @@ $result = $conn->query($sql);
                         echo "<td>" . $row['address'] . "</td>";
                         echo "<td>" . $row['email'] . "</td>";
                         echo "<td>" . $row['total_spent'] . "</td>";
-                        echo "<td><a href='Pcustomerlistedit.php?id=" . $row['custID'] . "'>Edit</a> | <a href='Pcustomerlistdel.php?id=" . $row['custID'] . "'>Delete</a></td>";
+                        // Actions column with edit and delete links
+                        echo "<td><a href='Pcustomerlistedit.php?id=" . $row['custID'] . "'>Edit</a> | <a href='#' onclick='confirmDelete(\"Pcustomerlistdel.php?id=" . $row['custID'] . "\")'>Delete</a></td>";
                         echo "</tr>";
                     }
                 } else {
@@ -77,6 +78,14 @@ $result = $conn->query($sql);
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     <!-- Include footer -->
     <?php include 'include/footer.php'; ?>
+
+    <!-- JavaScript for confirmation popup -->
+    <script>
+        function confirmDelete(url) {
+            if (confirm("Are you sure you want to delete this customer?")) {
+                window.location.href = url;
+            }
+        }
+    </script>
 </body>
 </html>
-

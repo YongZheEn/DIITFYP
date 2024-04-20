@@ -1,0 +1,41 @@
+/* reports.css */
+
+.content {
+    display: flex;
+    flex-direction: column; /* Ensure children stack vertically */
+    align-items: left; /* Left align the content */
+    padding: 20px;
+}
+
+.report-container {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    margin: 10px;   
+    width: fit-content; /* Set the width to fit the content */
+}
+
+.report-wrapper {
+    flex: 1;
+    margin: 10px;
+}
+
+
+.report-container h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.report-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.report-list li {
+    margin-bottom: 5px;
+}
+
+
+

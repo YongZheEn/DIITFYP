@@ -1,3 +1,12 @@
+<?php
+// Include database connection
+include 'db_connection.php';
+
+// Fetch orders data
+$sql = "SELECT * FROM orders";
+$result = $conn->query($sql);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,7 +33,7 @@
     
     <!-- Content -->
     <div class="content">
-        <h2>Sales</h2>
+        <h2>Orders</h2>
         <!-- Display sales data -->
         <div class="sales-table">
             <table class="data-table">
@@ -43,13 +52,6 @@
                 </thead>
                 <tbody>
                     <?php
-                    // Include database connection
-                    include 'db_connection.php';
-                    
-                    // Fetch orders data
-                    $sql = "SELECT * FROM orders";
-                    $result = $conn->query($sql);
-                    
                     // Check if there are any orders
                     if ($result && $result->num_rows > 0) {
                         // Output data of each row
@@ -66,7 +68,7 @@
                             // Edit and delete buttons
                             echo "<td>";
                             echo "<a href='Psalesedit.php?id=" . $row['order_ID'] . "'>Edit</a> | ";
-                            echo "<a href='Psalesdel.php?id=" . $row['order_ID'] . "' onclick='return confirm(\"Are you sure you want to delete this order?\")'>Delete</a>";
+                            echo "<a href='#' onclick='confirmDelete(\"Psalesdel.php?id=" . $row['order_ID'] . "\")'>Delete</a>";
                             echo "</td>";
                             echo "</tr>";
                         }
@@ -81,5 +83,14 @@
     
     <!-- Include footer -->
     <?php include 'include/footer.php'; ?>
+
+    <!-- JavaScript for confirmation popup -->
+    <script>
+        function confirmDelete(url) {
+            if (confirm("Are you sure you want to delete this order?")) {
+                window.location.href = url;
+            }
+        }
+    </script>
 </body>
 </html>

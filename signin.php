@@ -1,4 +1,7 @@
 <?php
+// Start session
+session_start();
+
 // Include database connection
 include 'db_connection.php';
 
@@ -26,6 +29,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Set first and last names
         $firstName = $row['fname'];
         $lastName = $row['lname'];
+        
+        // Start session and store user data in session variables
+        $_SESSION['firstName'] = $firstName;
+        $_SESSION['lastName'] = $lastName;
+        
         // Redirect user to Ccart.php
         header("Location: Ccatalogue.php");
         exit();
@@ -42,10 +50,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Set first and last names
         $firstName = $row['fname'];
         $lastName = $row['lname'];
-        // Set the welcome message including first and last names
-        $welcome_message = "Welcome back, " . $firstName . " " . $lastName . "! You have successfully signed in!";
-        // Redirect user to Preports.php with the welcome message included in the URL
-        header("Location: Preports.php?message=" . urlencode($welcome_message));
+        
+        // Start session and store user data in session variables
+        $_SESSION['firstName'] = $firstName;
+        $_SESSION['lastName'] = $lastName;
+        
+        // Redirect user to Preports.php
+        header("Location: Preports.php");
         exit();
     }
 

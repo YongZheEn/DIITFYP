@@ -1,4 +1,7 @@
 <?php
+// Start session
+session_start();
+
 // Include database connection
 include 'db_connection.php';
 
@@ -29,34 +32,8 @@ $customer_result = mysqli_query($conn, $customer_sql);
     <link rel="stylesheet" href="css/navbar.css">
     <!-- Include footer-specific CSS -->
     <link rel="stylesheet" href="css/footer.css">
-    <!-- Custom CSS for reports page -->
-    <style>
-        .content {
-            display: flex;
-            flex-wrap: wrap;
-            padding: 20px;
-        }
-
-        .report-container {
-            flex: 1;
-            margin: 10px;
-            border: 1px solid #ccc;
-            padding: 10px;
-        }
-
-        .report-container h3 {
-            margin-top: 0;
-        }
-
-        .report-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .report-list li {
-            margin-bottom: 5px;
-        }
-    </style>
+    <!-- Include reports-specific CSS -->
+    <link rel="stylesheet" href="css/Preports.css">
 </head>
 <body>
     <!-- Include header -->
@@ -68,13 +45,10 @@ $customer_result = mysqli_query($conn, $customer_sql);
     <!-- Content -->
 
     <div class="content">
-    <h2>Reports Page</h2>
-    <?php
-    // Check if welcome message is set
-    if (isset($_GET['message'])) {
-        echo "<p>" . $_GET['message'] . "</p>";
-    }
-    ?>
+        <!-- Welcome message -->
+        <h1>Welcome, <?php echo isset($_SESSION['firstName']) && isset($_SESSION['lastName']) ? $_SESSION['firstName'] . ' ' . $_SESSION['lastName'] : ''; ?>!</h1>
+        <h2>Reports</h2>
+        
         <!-- Metrics containers -->
         <!-- Display most purchased products -->
         <div class="report-container">
@@ -119,6 +93,7 @@ $customer_result = mysqli_query($conn, $customer_sql);
         </div>
     </div>
     
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     <!-- Include footer -->
     <?php include 'include/footer.php'; ?>
 </body>
