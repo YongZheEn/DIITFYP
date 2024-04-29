@@ -1,26 +1,29 @@
-/* reports.css */
+/* Preports.css */
 
+/* Flexbox for layout */
 .content {
     display: flex;
-    flex-direction: column; /* Ensure children stack vertically */
-    align-items: left; /* Left align the content */
+    flex-direction: row; /* Change to row to stack containers left to right */
+    flex-wrap: wrap; /* Allow wrapping if content exceeds container width */
     padding: 20px;
+    justify-content: flex-start; /* Align containers to the start of the main axis */
 }
 
+/* Adjust width of each report container */
 .report-container {
     border: 1px solid #ccc;
     border-radius: 8px;
     padding: 20px;
     background-color: #f9f9f9;
-    margin: 10px;   
+    margin: 10px;
     width: fit-content; /* Set the width to fit the content */
 }
 
+/* Optional wrapper for additional styling */
 .report-wrapper {
     flex: 1;
     margin: 10px;
 }
-
 
 .report-container h3 {
     margin-top: 0;
@@ -36,6 +39,3 @@
 .report-list li {
     margin-bottom: 5px;
 }
-
-
-

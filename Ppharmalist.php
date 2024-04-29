@@ -72,7 +72,7 @@ $result = $conn->query($sql);
                     echo "<td><a href='Ppharmalistedit.php?id=" . $row['PharmID'] . "'>Edit</a> | <a href='#' onclick='confirmDelete(" . $row['PharmID'] . ")'>Delete</a></td>";
                     echo "</tr>";
                 } else {
-                    echo "<tr><td colspan='8'>No pharmacist found</td></tr>";
+                    echo "<tr><td colspan='8'>Pharmacist not logged in</td></tr>";
                 }
                 ?>
             </tbody>

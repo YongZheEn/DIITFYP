@@ -16,6 +16,25 @@ $product_result = mysqli_query($conn, $product_sql);
 // Fetch the 5 most paying customers
 $customer_sql = "SELECT fname, lname, SUM(total_spent) as total_spent FROM customers GROUP BY fname ORDER BY total_spent DESC LIMIT 5";
 $customer_result = mysqli_query($conn, $customer_sql);
+
+// Fetch sales data by day
+$sales_sql = "SELECT date, SUM(totalcost) AS total_sales FROM orders GROUP BY date";
+$sales_result = mysqli_query($conn, $sales_sql);
+
+// Initialize arrays for labels and sales data
+$labels = [];
+$data = [];
+
+// Process sales data
+if ($sales_result && mysqli_num_rows($sales_result) > 0) {
+    while ($row = mysqli_fetch_assoc($sales_result)) {
+        // Format date for label
+        $labels[] = $row['date'];
+
+        // Add total sales for the day
+        $data[] = $row['total_sales'];
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -34,6 +53,8 @@ $customer_result = mysqli_query($conn, $customer_sql);
     <link rel="stylesheet" href="css/footer.css">
     <!-- Include reports-specific CSS -->
     <link rel="stylesheet" href="css/Preports.css">
+    <!-- Include Chart.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <!-- Include header -->
@@ -91,10 +112,44 @@ $customer_result = mysqli_query($conn, $customer_sql);
                 <?php endif; ?>
             </ul>
         </div>
+
+        <!-- Sales Trends Over Time -->
+        <div class="report-container">
+            <h3>Sales Trends Over Time</h3>
+            <!-- Create Canvas Element for Chart -->
+            <canvas id="salesChart"></canvas>
+        </div>
     </div>
     
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     <!-- Include footer -->
     <?php include 'include/footer.php'; ?>
+
+    <!-- JavaScript for Sales Trends Chart -->
+    <script>
+        var ctx = document.getElementById('salesChart').getContext('2d');
+        var salesChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: <?php echo json_encode($labels); ?>,
+                datasets: [{
+                    label: 'Sales Trends',
+                    data: <?php echo json_encode($data); ?>,
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
 </body>
 </html>
