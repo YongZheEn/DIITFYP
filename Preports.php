@@ -55,21 +55,22 @@ if ($sales_result && mysqli_num_rows($sales_result) > 0) {
     <link rel="stylesheet" href="css/Preports.css">
     <!-- Include Chart.js Library -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
-<body>
+    
+    <body>
     <!-- Include header -->
     <?php include 'include/Pheader.php'; ?>
 
     <!-- Include navbar -->
     <?php include 'include/Pnavbar.php'; ?>
     
+    <!-- Welcome message -->
+    <div class="welcome">
+        <h1>&nbsp&nbspWelcome, <?php echo isset($_SESSION['firstName']) && isset($_SESSION['lastName']) ? $_SESSION['firstName'] . ' ' . $_SESSION['lastName'] : ''; ?>!</h1>
+        <h2>&nbsp&nbsp&nbspReports</h2>
+    </div>
+    
     <!-- Content -->
-
     <div class="content">
-        <!-- Welcome message -->
-        <h1>Welcome, <?php echo isset($_SESSION['firstName']) && isset($_SESSION['lastName']) ? $_SESSION['firstName'] . ' ' . $_SESSION['lastName'] : ''; ?>!</h1>
-        <h2>Reports</h2>
-        
         <!-- Metrics containers -->
         <!-- Display most purchased products -->
         <div class="report-container">
@@ -152,4 +153,3 @@ if ($sales_result && mysqli_num_rows($sales_result) > 0) {
         });
     </script>
 </body>
-</html>

@@ -1,12 +1,17 @@
 /* Preports.css */
 
+.welcome {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
 /* Flexbox for layout */
 .content {
     display: flex;
-    flex-direction: row; /* Change to row to stack containers left to right */
-    flex-wrap: wrap; /* Allow wrapping if content exceeds container width */
+    flex-direction: row; /* Change to row for left-to-right stacking */
     padding: 20px;
-    justify-content: flex-start; /* Align containers to the start of the main axis */
+    flex-wrap: wrap; /* Allow containers to wrap to the next line if necessary */
 }
 
 /* Adjust width of each report container */
@@ -39,3 +44,4 @@
 .report-list li {
     margin-bottom: 5px;
 }
+
