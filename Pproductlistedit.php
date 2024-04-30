@@ -34,16 +34,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $price = $_POST["ProdP"];
     $stock = $_POST["ProdStock"];
 
-    // Update product details in the database
-    $sql = "UPDATE products SET prod_Cat = '$cat', prod_Name = '$name', prod_Desc = '$desc', ProdP = $price, ProdStock = $stock WHERE prod_ID = $id";
+    // Check if file is uploaded
+    if ($_FILES['image']['error'] == UPLOAD_ERR_OK && is_uploaded_file($_FILES['image']['tmp_name'])) {
+        // Define upload directory
+        $upload_dir = 'uploads/';
+        // Generate unique file name
+        $file_name = uniqid() . '_' . basename($_FILES['image']['name']);
+        // Concatenate directory and file name
+        $target_path = $upload_dir . $file_name;
 
-    if ($conn->query($sql) === TRUE) {
-        // Redirect to products page after successful update
-        header("Location: Pproductlist.php");
-        exit();
+        // Move uploaded file to target path
+        if (move_uploaded_file($_FILES['image']['tmp_name'], $target_path)) {
+            // Update product details in the database with file path
+            $sql = "UPDATE products SET prod_Cat = '$cat', prod_Name = '$name', prod_Desc = '$desc', ProdP = $price, ProdStock = $stock, img_path = '$target_path' WHERE prod_ID = $id";
+
+            if ($conn->query($sql) === TRUE) {
+                // Redirect to products page after successful update
+                header("Location: Pproductlist.php");
+                exit();
+            } else {
+                // Set error message if update fails
+                $errorMsg = "Error updating product: " . $conn->error;
+            }
+        } else {
+            $errorMsg = "Error uploading file.";
+        }
     } else {
-        // Set error message if update fails
-        $errorMsg = "Error updating product: " . $conn->error;
+        // No image uploaded, retain the existing image path
+        $sql = "UPDATE products SET prod_Cat = '$cat', prod_Name = '$name', prod_Desc = '$desc', ProdP = $price, ProdStock = $stock WHERE prod_ID = $id";
+
+        if ($conn->query($sql) === TRUE) {
+            // Redirect to products page after successful update
+            header("Location: Pproductlist.php");
+            exit();
+        } else {
+            // Set error message if update fails
+            $errorMsg = "Error updating product: " . $conn->error;
+        }
     }
 }
 ?>
@@ -71,7 +98,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <?php if ($errorMsg !== ""): ?>
             <p class="error-message"><?php echo $errorMsg; ?></p>
         <?php endif; ?>
-        <form action="" method="post">
+        <form action="" method="post" enctype="multipart/form-data">
             <label for="prod_Cat">Category:</label>
             <input type="text" id="prod_Cat" name="prod_Cat" value="<?php echo $product['prod_Cat']; ?>" required><br><br>
             <label for="prod_Name">Name:</label>
@@ -82,6 +109,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="number" id="ProdP" name="ProdP" value="<?php echo $product['ProdP']; ?>" required><br><br>
             <label for="ProdStock">Stock:</label>
             <input type="number" id="ProdStock" name="ProdStock" value="<?php echo $product['ProdStock']; ?>" required><br><br>
+            <label for="image">Choose Image:</label>
+            <input type="file" id="image" name="image"><br><br>
             <button type="submit">Update Product</button>
         </form>
     </div>

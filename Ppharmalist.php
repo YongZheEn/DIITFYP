@@ -10,8 +10,12 @@ $firstName = $_SESSION['firstName'];
 $lastName = $_SESSION['lastName'];
 
 // Fetch data for the logged-in pharmacist
-$sql = "SELECT * FROM pharmacists WHERE fname = '$firstName' AND lname = '$lastName'";
-$result = $conn->query($sql);
+$sqlLoggedIn = "SELECT * FROM pharmacists WHERE fname = '$firstName' AND lname = '$lastName'";
+$resultLoggedIn = $conn->query($sqlLoggedIn);
+
+// Fetch data for all other pharmacists
+$sqlAllPharmacists = "SELECT * FROM pharmacists WHERE NOT (fname = '$firstName' AND lname = '$lastName')";
+$resultAllPharmacists = $conn->query($sqlAllPharmacists);
 ?>
 
 <!DOCTYPE html>
@@ -40,7 +44,7 @@ $result = $conn->query($sql);
     
     <!-- Content -->
     <div class="content">
-        <h2>Pharmacist Details</h2>
+        <h2>Currently logged in</h2>
         <!-- Display pharmacist details -->
         <table class="data-table">
             <thead>
@@ -57,22 +61,59 @@ $result = $conn->query($sql);
             </thead>
             <tbody>
                 <?php
-                // Check if there are any pharmacists
-                if ($result && $result->num_rows > 0) {
+                // Check if there are any pharmacists logged in
+                if ($resultLoggedIn && $resultLoggedIn->num_rows > 0) {
                     // Output data of the pharmacist
-                    $row = $result->fetch_assoc();
+                    $rowLoggedIn = $resultLoggedIn->fetch_assoc();
                     echo "<tr>";
-                    echo "<td>" . $row['pharmID'] . "</td>";
-                    echo "<td>" . $row['fname'] . "</td>";
-                    echo "<td>" . $row['lname'] . "</td>";
-                    echo "<td>" . $row['gender'] . "</td>";
-                    echo "<td>" . $row['age'] . "</td>";
-                    echo "<td>" . $row['address'] . "</td>";
-                    echo "<td>" . $row['email'] . "</td>";
-                    echo "<td><a href='Ppharmalistedit.php?id=" . $row['pharmID'] . "'>Edit</a> | <a href='#' onclick='confirmDelete(" . $row['pharmID'] . ")'>Delete</a></td>";
+                    echo "<td>" . $rowLoggedIn['pharmID'] . "</td>";
+                    echo "<td>" . $rowLoggedIn['fname'] . "</td>";
+                    echo "<td>" . $rowLoggedIn['lname'] . "</td>";
+                    echo "<td>" . $rowLoggedIn['gender'] . "</td>";
+                    echo "<td>" . $rowLoggedIn['age'] . "</td>";
+                    echo "<td>" . $rowLoggedIn['address'] . "</td>";
+                    echo "<td>" . $rowLoggedIn['email'] . "</td>";
+                    echo "<td><a href='Ppharmalistedit.php?id=" . $rowLoggedIn['pharmID'] . "'>Edit</a> | <a href='#' onclick='confirmDelete(" . $rowLoggedIn['pharmID'] . ")'>Delete</a></td>";
                     echo "</tr>";
                 } else {
                     echo "<tr><td colspan='8'>Pharmacist not logged in</td></tr>";
+                }
+                ?>
+            </tbody>
+        </table>
+        
+        <!-- Display other pharmacists -->
+        <h2>Other Pharmacists</h2>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Pharmacist ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Gender</th>
+                    <th>Age</th>
+                    <th>Address</th>
+                    <th>Email</th>  
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                // Check if there are any other pharmacists
+                if ($resultAllPharmacists && $resultAllPharmacists->num_rows > 0) {
+                    // Output data of each other pharmacist
+                    while ($rowAllPharmacists = $resultAllPharmacists->fetch_assoc()) {
+                        echo "<tr>";
+                        echo "<td>" . $rowAllPharmacists['pharmID'] . "</td>";
+                        echo "<td>" . $rowAllPharmacists['fname'] . "</td>";
+                        echo "<td>" . $rowAllPharmacists['lname'] . "</td>";
+                        echo "<td>" . $rowAllPharmacists['gender'] . "</td>";
+                        echo "<td>" . $rowAllPharmacists['age'] . "</td>";
+                        echo "<td>" . $rowAllPharmacists['address'] . "</td>";
+                        echo "<td>" . $rowAllPharmacists['email'] . "</td>";
+                        echo "</tr>";
+                    }
+                } else {
+                    echo "<tr><td colspan='8'>No other pharmacists found</td></tr>";
                 }
                 ?>
             </tbody>
@@ -92,3 +133,8 @@ $result = $conn->query($sql);
     </script>
 </body>
 </html>
+
+<?php
+// Close database connection
+$conn->close();
+?>
