@@ -62,14 +62,14 @@ $result = $conn->query($sql);
                     // Output data of the pharmacist
                     $row = $result->fetch_assoc();
                     echo "<tr>";
-                    echo "<td>" . $row['PharmID'] . "</td>";
+                    echo "<td>" . $row['pharmID'] . "</td>";
                     echo "<td>" . $row['fname'] . "</td>";
                     echo "<td>" . $row['lname'] . "</td>";
                     echo "<td>" . $row['gender'] . "</td>";
                     echo "<td>" . $row['age'] . "</td>";
                     echo "<td>" . $row['address'] . "</td>";
                     echo "<td>" . $row['email'] . "</td>";
-                    echo "<td><a href='Ppharmalistedit.php?id=" . $row['PharmID'] . "'>Edit</a> | <a href='#' onclick='confirmDelete(" . $row['PharmID'] . ")'>Delete</a></td>";
+                    echo "<td><a href='Ppharmalistedit.php?id=" . $row['pharmID'] . "'>Edit</a> | <a href='#' onclick='confirmDelete(" . $row['pharmID'] . ")'>Delete</a></td>";
                     echo "</tr>";
                 } else {
                     echo "<tr><td colspan='8'>Pharmacist not logged in</td></tr>";

@@ -10,7 +10,7 @@ if (!isset($_GET['id'])) {
 
 // Fetch pharmacist details from the database based on the provided ID
 $id = $_GET['id'];
-$sql = "SELECT * FROM pharmacists WHERE PharmID = $id";
+$sql = "SELECT * FROM pharmacists WHERE pharmID = $id";
 $result = $conn->query($sql);
 
 // Check if pharmacist exists
@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["email"];
 
     // Update pharmacist details in the database
-    $sql = "UPDATE pharmacists SET fname = '$fname', lname = '$lname', gender = '$gender', age = $age, address = '$address', email = '$email' WHERE PharmID = $id";
+    $sql = "UPDATE pharmacists SET fname = '$fname', lname = '$lname', gender = '$gender', age = $age, address = '$address', email = '$email' WHERE pharmID = $id";
 
     if ($conn->query($sql) === TRUE) {
         // Redirect to pharmacist list page after successful update

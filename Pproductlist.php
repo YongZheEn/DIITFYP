@@ -3,7 +3,8 @@
 include 'db_connection.php';
 
 // Fetch products data from the database
-$sql = "SELECT * FROM products";
+$sql = "SELECT p.prod_ID, p.prod_Cat, p.prod_Name, p.img_path AS image_link, p.prod_Desc, p.ProdP, p.ProdStock, p.total_profit 
+FROM products p";
 $result = $conn->query($sql);
 ?>
 
@@ -43,6 +44,7 @@ $result = $conn->query($sql);
                     <th>Prod_ID</th>
                     <th>Prod_Cat</th>
                     <th>Prod_Name</th>
+                    <th>Image</th>
                     <th>Prod_Desc</th>
                     <th>ProdP</th>
                     <th>ProdStock</th>
@@ -60,6 +62,7 @@ $result = $conn->query($sql);
                         echo "<td>" . $row['prod_ID'] . "</td>";
                         echo "<td>" . $row['prod_Cat'] . "</td>";
                         echo "<td>" . $row['prod_Name'] . "</td>";
+                        echo "<td><img src='" . $row['image_link'] . "' alt='Product Image' style='max-width: 100px; max-height: 100px;'></td>";
                         echo "<td>" . $row['prod_Desc'] . "</td>";
                         echo "<td>" . $row['ProdP'] . "</td>";
                         echo "<td>" . $row['ProdStock'] . "</td>";

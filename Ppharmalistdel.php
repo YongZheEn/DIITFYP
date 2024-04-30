@@ -12,7 +12,7 @@ if (!isset($_GET['id'])) {
 $id = $_GET['id'];
 
 // Delete pharmacist record from the database
-$sql = "DELETE FROM pharmacists WHERE PharmID = $id";
+$sql = "DELETE FROM pharmacists WHERE pharmID = $id";
 
 if ($conn->query($sql) === TRUE) {
     // Redirect to pharmacist list page after successful deletion
