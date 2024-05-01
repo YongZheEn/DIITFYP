@@ -56,7 +56,7 @@ $result = $conn->query($sql);
                     // Output data of each row
                     while ($row = $result->fetch_assoc()) {
                         echo "<tr>";
-                        echo "<td>" . $row['custID'] . "</td>";
+                        echo "<td>" . $row['cust_ID'] . "</td>";
                         echo "<td>" . $row['fname'] . "</td>";
                         echo "<td>" . $row['lname'] . "</td>";
                         echo "<td>" . $row['gender'] . "</td>";
@@ -65,7 +65,7 @@ $result = $conn->query($sql);
                         echo "<td>" . $row['email'] . "</td>";
                         echo "<td>" . $row['total_spent'] . "</td>";
                         // Actions column with edit and delete links
-                        echo "<td><a href='Pcustomerlistedit.php?id=" . $row['custID'] . "'>Edit</a> | <a href='#' onclick='confirmDelete(\"Pcustomerlistdel.php?id=" . $row['custID'] . "\")'>Delete</a></td>";
+                        echo "<td><a href='Pcustomerlistedit.php?id=" . $row['cust_ID'] . "'>Edit</a> | <a href='#' onclick='confirmDelete(\"Pcustomerlistdel.php?id=" . $row['cust_ID'] . "\")'>Delete</a></td>";
                         echo "</tr>";
                     }
                 } else {

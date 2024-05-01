@@ -12,7 +12,7 @@ if (!isset($_GET['id'])) {
 $id = $_GET['id'];
 
 // Delete customer record from the database
-$sql = "DELETE FROM customers WHERE custID = $id";
+$sql = "DELETE FROM customers WHERE cust_ID = $id";
 
 if ($conn->query($sql) === TRUE) {
     // Redirect to customer list page after successful deletion

@@ -10,7 +10,7 @@ if (!isset($_GET['id'])) {
 
 // Fetch customer details from the database based on the provided ID
 $id = $_GET['id'];
-$sql = "SELECT * FROM customers WHERE custID = $id";
+$sql = "SELECT * FROM customers WHERE cust_ID = $id";
 $result = $conn->query($sql);
 
 // Check if customer exists
@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["email"];
 
     // Update customer details in the database
-    $sql = "UPDATE customers SET fname = '$fname', lname = '$lname', gender = '$gender', age = $age, address = '$address', email = '$email'                                                                                                                              WHERE custID = $id";
+    $sql = "UPDATE customers SET fname = '$fname', lname = '$lname', gender = '$gender', age = $age, address = '$address', email = '$email'                                                                                                                              WHERE cust_ID = $id";
 
     if ($conn->query($sql) === TRUE) {
         // Redirect to customer list page after successful update

@@ -2,6 +2,32 @@
 // Include database connection
 include 'db_connection.php';
 
+// Check if form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['prod_ID']) && isset($_POST['quantity'])) {
+    // Sanitize inputs to prevent SQL injection
+    $prod_ID = mysqli_real_escape_string($conn, $_POST['prod_ID']);
+    $quantity = intval($_POST['quantity']);
+
+    // Fetch product name for the message
+    $sql_prod_name = "SELECT prod_Name FROM products WHERE prod_ID = '$prod_ID'";
+    $result_prod_name = $conn->query($sql_prod_name);
+    $row_prod_name = $result_prod_name->fetch_assoc();
+    $itemName = $row_prod_name['prod_Name'];
+
+    // Update stock quantity in the database
+    $sql_update = "UPDATE products SET ProdStock = ProdStock + $quantity WHERE prod_ID = '$prod_ID'";
+    if ($conn->query($sql_update) === TRUE) {
+        // Call JavaScript function to show purchase message
+        echo "<script>showPurchaseMessage($quantity, '$itemName');</script>";
+        // Redirect back to product list
+        header("Location: Pproductlist.php");
+        exit();
+    } else {
+        // Handle error if update fails
+        echo "Error updating record: " . $conn->error;
+    }
+}
+
 // Fetch products data from the database
 $sql = "SELECT p.prod_ID, p.prod_Cat, p.prod_Name, p.img_path AS image_link, p.prod_Desc, p.ProdP, p.ProdStock, p.total_profit 
 FROM products p";
@@ -68,19 +94,24 @@ $result = $conn->query($sql);
                         echo "<td>" . $row['ProdStock'] . "</td>";
                         echo "<td>" . $row['total_profit'] . "</td>";
                         // Actions column with edit and delete links
-                        echo "<td><a href='Pproductlistedit.php?id=" . $row['prod_ID'] . "'>Edit</a> | <a href='#' onclick='confirmDelete(\"Pproductlistdel.php?id=" . $row['prod_ID'] . "\")'>Delete</a></td>";
+                        echo "<td>";
+                        echo "<a href='Pproductlistedit.php?id=" . $row['prod_ID'] . "'>Edit</a> | <a href='#' onclick='confirmDelete(\"Pproductlistdel.php?id=" . $row['prod_ID'] . "\")'>Delete</a><br><br>";
+                        echo "<form action='Pproductlist.php' method='post' onsubmit='return showPurchaseMessage(" . $row['prod_ID'] . ", \"" . $row['prod_Name'] . "\")'>";
+                        echo "<input type='hidden' name='prod_ID' value='" . $row['prod_ID'] . "'>";
+                        echo "<input type='number' name='quantity' value='1' min='1'>";
+                        echo "<input type='submit' value='Buy Stock'>";
+                        echo "</form>";
+
+                        echo "</td>";
+                        echo "</tr>";
                         echo "</tr>";
                     }
                 } else {
                     echo "<tr><td colspan='7'>No products found</td></tr>";
                 }
-                // Close database connection
-                $conn->close();
                 ?>
             </tbody>
         </table>
-
-        
     </div>
     
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
@@ -89,11 +120,18 @@ $result = $conn->query($sql);
 
     <!-- JavaScript for confirmation popup -->
     <script>
-        function confirmDelete(url) {
-            if (confirm("Are you sure you want to delete this product?")) {
-                window.location.href = url;
-            }
+    function showPurchaseMessage(prod_ID, itemName) {
+        var quantity = document.querySelector('input[name="quantity"]').value;
+        alert(quantity + " " + itemName + " purchased.");
+        return true;
+    }
+
+    function confirmDelete(url) {
+        if (confirm("Are you sure you want to delete this product?")) {
+            window.location.href = url;
         }
+    }
     </script>
+
 </body>
 </html>

@@ -2,23 +2,23 @@
 // Include database connection
 include 'db_connection.php';
 
-// Check if pharmacist ID is provided in the URL
+// Check if customer ID is provided in the URL
 if (!isset($_GET['id'])) {
-    header("Location: Ppharmacistlist.php");
+    header("Location: Cprofile.php");
     exit();
 }
 
-// Fetch pharmacist details from the database based on the provided ID
+// Fetch customer details from the database based on the provided ID
 $id = $_GET['id'];
-$sql = "SELECT * FROM pharmacists WHERE pharmID = $id";
+$sql = "SELECT * FROM customers WHERE cust_ID = $id";
 $result = $conn->query($sql);
 
-// Check if pharmacist exists
+// Check if customer exists
 if ($result && $result->num_rows > 0) {
-    $pharmacist = $result->fetch_assoc();
+    $customer = $result->fetch_assoc();
 } else {
-    // Redirect to pharmacist list page if pharmacist does not exist
-    header("Location: Ppharmacistlist.php");
+    // Redirect to customer details page if customer does not exist
+    header("Location: Cprofile.php");
     exit();
 }
 
@@ -27,24 +27,24 @@ $errorMsg = "";
 
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Process form data to update pharmacist details
+    // Process form data to update customer details
     $fname = $_POST["fname"];
     $lname = $_POST["lname"];
-    $gender = $_POST["gender"];
     $age = $_POST["age"];
-    $address = $_POST["address"];
+    $gender = $_POST["gender"];
     $email = $_POST["email"];
+    $address = $_POST["address"];
 
-    // Update pharmacist details in the database
-    $sql = "UPDATE pharmacists SET fname = '$fname', lname = '$lname', gender = '$gender', age = $age, address = '$address', email = '$email' WHERE pharmID = $id";
+    // Update customer details in the database
+    $sql = "UPDATE customers SET fname = '$fname', lname = '$lname', age = '$age', gender = '$gender', email = '$email', address = '$address' WHERE cust_ID = $id";
 
     if ($conn->query($sql) === TRUE) {
-        // Redirect to pharmacist list page after successful update
-        header("Location: Ppharmacistlist.php");
+        // Redirect to customer details page after successful update
+        header("Location: Cprofile.php");
         exit();
     } else {
         // Set error message if update fails
-        $errorMsg = "Error updating pharmacist: " . $conn->error;
+        $errorMsg = "Error updating customer: " . $conn->error;
     }
 }
 ?>
@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Pharmacist</title>
+    <title>Edit Customer</title>
     <!-- Include global CSS -->
     <link rel="stylesheet" href="css/global.css">
     <!-- Include header-specific CSS -->
@@ -64,30 +64,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
     <!-- Include header -->
-    <?php include 'include/Pheader.php'; ?>         
+    <?php include 'include/Cheader.php'; ?>
 
     <div class="container">
-        <h2>Edit Pharmacist</h2>
+        <h2>Edit Customer</h2>
         <!-- Display error message if any -->
         <?php if ($errorMsg !== ""): ?>
             <p class="error-message"><?php echo $errorMsg; ?></p>
         <?php endif; ?>
         <form action="" method="post">
             <label for="fname">First Name:</label>
-            <input type="text" id="fname" name="fname" value="<?php echo $pharmacist['fname']; ?>" required><br><br>
+            <input type="text" id="fname" name="fname" value="<?php echo $customer['fname']; ?>" required><br><br>
             <label for="lname">Last Name:</label>
-            <input type="text" id="lname" name="lname" value="<?php echo $pharmacist['lname']; ?>" required><br><br>
+            <input type="text" id="lname" name="lname" value="<?php echo $customer['lname']; ?>" required><br><br>
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" value="<?php echo $customer['age']; ?>" required><br><br>
             <label for="gender">Gender:</label>
             <select id="gender" name="gender" required>
                 <option value="Male" <?php if ($customer['gender'] === 'Male') echo 'selected'; ?>>Male</option>
                 <option value="Female" <?php if ($customer['gender'] === 'Female') echo 'selected'; ?>>Female</option>
             </select><br><br>
-            <input type="number" id="age" name="age" value="<?php echo $pharmacist['age']; ?>" required><br><br>
-            <label for="address">Address:</label>
-            <input type="text" id="address" name="address" value="<?php echo $pharmacist['address']; ?>" required><br><br>
             <label for="email">Email:</label>
-            <input type="email" id="email" name="email" value="<?php echo $pharmacist['email']; ?>" required><br><br>
-            <button type="submit">Update Pharmacist</button>
+            <input type="email" id="email" name="email" value="<?php echo $customer['email']; ?>" required><br><br>
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address" value="<?php echo $customer['address']; ?>" required><br><br>
+            <button type="submit">Update Customer</button>
         </form>
     </div>
 

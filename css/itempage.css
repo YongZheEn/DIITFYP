@@ -1,0 +1,19 @@
+/* itempage.css */
+
+.product-details {
+    display: flex;
+}
+
+.image-container {
+    flex: 1;
+}
+
+.image-container img {
+    max-width: 100%;
+    height: auto;
+}
+
+.details-container {
+    flex: 2;
+    padding-left: 20px; /* Add padding to separate image and details */
+}
