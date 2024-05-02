@@ -5,8 +5,20 @@ session_start();
 // Include database connection
 include 'db_connection.php';
 
-// Fetch product data
+// Initialize search query
+$searchQuery = "";
+
+// Process search query if form is submitted
+if(isset($_GET['search'])) {
+    $searchQuery = $_GET['search'];
+}
+
+// Fetch product data with search query
 $sql = "SELECT * FROM products";
+if(!empty($searchQuery)) {
+    // Modify the SQL query to include search functionality
+    $sql .= " WHERE prod_Name LIKE '%$searchQuery%' OR prod_Cat LIKE '%$searchQuery%' OR prod_Desc LIKE '%$searchQuery%'";
+}
 $result = $conn->query($sql);
 ?>
 
@@ -37,6 +49,14 @@ $result = $conn->query($sql);
     <!-- Content -->
     <div class="content">
         <h2>Product Catalogue</h2>
+        
+        <!-- Search form -->
+        <form action="" method="GET">
+            <input type="text" name="search" placeholder="Search products..." value="<?php echo htmlspecialchars($searchQuery); ?>">
+            <button type="submit">Search</button>
+            <br><br><br><br>
+        </form>
+        
         <div class="product-grid">
             <?php if ($result && $result->num_rows > 0): ?>
                 <?php while ($row = $result->fetch_assoc()): ?>
@@ -52,7 +72,7 @@ $result = $conn->query($sql);
             <?php endif; ?>
         </div>
     </div>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    
     <!-- Include footer -->
     <?php include 'include/footer.php'; ?>
 </body>
