@@ -84,6 +84,44 @@ $resultLoggedInCustomer = $conn->query($sqlLoggedInCustomer);
                 ?>
             </tbody>
         </table>
+
+        <!-- Display customer orders -->
+        <h2>Customer Orders</h2>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Product ID</th>
+                    <th>Quantity</th>
+                    <th>Total Cost</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                // Fetch customer orders
+                $sqlCustomerOrders = "SELECT * FROM orders WHERE cust_ID = '" . $rowLoggedInCustomer['cust_ID'] . "'";
+                $resultCustomerOrders = $conn->query($sqlCustomerOrders);
+                if ($resultCustomerOrders && $resultCustomerOrders->num_rows > 0) {
+                    while ($rowOrder = $resultCustomerOrders->fetch_assoc()) {
+                        echo "<tr>";
+                        echo "<td>" . $rowOrder['order_ID'] . "</td>";
+                        echo "<td>" . $rowOrder['prod_ID'] . "</td>";
+                        echo "<td>" . $rowOrder['quantity'] . "</td>";
+                        echo "<td>" . $rowOrder['totalcost'] . "</td>";
+                        echo "<td>" . $rowOrder['date'] . "</td>";
+                        echo "<td>" . $rowOrder['time'] . "</td>";
+                        echo "<td>" . $rowOrder['status'] . "</td>";
+                        echo "</tr>";
+                    }
+                } else {
+                    echo "<tr><td colspan='7'>No orders found for this customer.</td></tr>";
+                }
+                ?>
+            </tbody>
+        </table>
     </div>
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     <!-- Include footer -->
