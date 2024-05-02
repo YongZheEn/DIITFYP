@@ -79,8 +79,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="text" id="lname" name="lname" value="<?php echo $pharmacist['lname']; ?>" required><br><br>
             <label for="gender">Gender:</label>
             <select id="gender" name="gender" required>
-                <option value="Male" <?php if ($customer['gender'] === 'Male') echo 'selected'; ?>>Male</option>
-                <option value="Female" <?php if ($customer['gender'] === 'Female') echo 'selected'; ?>>Female</option>
+                <option value="Male" <?php if ($pharmacist['gender'] === 'Male') echo 'selected'; ?>>Male</option>
+                <option value="Female" <?php if ($pharmacist['gender'] === 'Female') echo 'selected'; ?>>Female</option>
             </select><br><br>
             <input type="number" id="age" name="age" value="<?php echo $pharmacist['age']; ?>" required><br><br>
             <label for="address">Address:</label>
