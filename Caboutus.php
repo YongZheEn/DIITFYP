@@ -18,7 +18,7 @@
          crossorigin=""/>
     <!-- Define map container height -->
     <style>
-        #map { height: 250px; }
+        #map { height: 200px; }
     </style>
 </head>
 <body>
@@ -37,6 +37,7 @@
             <br> such as names, phone numbers, home addresses, and so forth.
         </p>
         <h1>Our Locations</h1>
+        <p>Sunway College, 2, Jalan Universiti, Bandar Sunway, 47500 Petaling Jaya, Selangor</p>
         <!-- Leaflet Map -->
         <div id="map"></div>
     </div>
