@@ -18,7 +18,7 @@
          crossorigin=""/>
     <!-- Define map container height -->
     <style>
-        #map { height: 300px; }
+        #map { height: 250px; }
     </style>
 </head>
 <body>

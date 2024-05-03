@@ -86,7 +86,7 @@ $resultLoggedInCustomer = $conn->query($sqlLoggedInCustomer);
         </table>
 
         <!-- Display customer orders -->
-        <h2>Customer Orders</h2>
+        <h2>Order History   </h2>
         <table class="data-table">
             <thead>
                 <tr>
